@@ -2,6 +2,8 @@
 import React from 'react';
 // libs
 import Dropzone from 'react-dropzone';
+// services
+import { apiService } from 'services';
 
 /**
  *
@@ -11,8 +13,21 @@ const AttachFilesComp = () => {
     const [files, setFiles] = React.useState([]);
 
     const onDrop = async (acceptedFiles, rejectedFiles) => {
-        console.log(acceptedFiles);
-        setFiles(acceptedFiles);
+        
+        const promises = acceptedFiles.map( file => apiService.post({url: 'Binary', data: [file]}) ); 
+
+        Promise.all(promises)
+            .then(resp => {
+                console.log(resp)
+                setFiles([...files, ...acceptedFiles]);
+            })
+            .catch(({ error }) => {
+                console.log(error);
+            });
+
+        // const resp = await apiService.post({url: 'Binary', data: acceptedFiles});
+        // console.log(resp)
+
     };
 
     const getPreview = file => URL.createObjectURL(file);
