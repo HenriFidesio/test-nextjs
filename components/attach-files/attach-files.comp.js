@@ -11,6 +11,7 @@ import { apiService } from 'services';
 const AttachFilesComp = () => {
 
     const [files, setFiles] = React.useState([]);
+    const [error, setError] = React.useState(null);
 
     const onDrop = async (acceptedFiles, rejectedFiles) => {
         
@@ -49,6 +50,9 @@ const AttachFilesComp = () => {
                                     ou la dragguer ci-dessous:
                                 </p>
                             )}
+                            {error &&
+                                <p className="attach-files__error">{error}</p>
+                            }
                             <div
                                 {...getRootProps()}
                                 className={`attach-files__dropzone ${

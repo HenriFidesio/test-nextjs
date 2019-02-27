@@ -6,6 +6,9 @@
     &__title {
         color: $cl-primary;
     }
+    &__error {
+        color: $cl-error;
+    }
     &__dropzone {
         position: relative;
         display: flex;
