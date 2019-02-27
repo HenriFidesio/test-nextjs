@@ -30,3 +30,10 @@ export const post = ({ url, data }) => {
     }).then(handleResponse);
 };
 
+export const get = ({url}) => {
+	return fetch(`${apiEndPoint}/${url}?_summary=count`, {
+        method: 'get',
+        headers: getHttpHeaders(),
+    }).then(handleResponse);	
+}
+

@@ -11,25 +11,20 @@ import { apiService } from 'services';
 const AttachFilesComp = () => {
 
     const [files, setFiles] = React.useState([]);
+    const [total, setTotal] = React.useState(0);
     const [error, setError] = React.useState(null);
 
     const onDrop = async (acceptedFiles, rejectedFiles) => {
-        
-        const promises = acceptedFiles.map( file => apiService.post({url: 'Binary', data: [file]}) ); 
-
-        Promise.all(promises)
-            .then(resp => {
-                console.log(resp)
-                setFiles([...files, ...acceptedFiles]);
-            })
-            .catch(({ error }) => {
-                console.log(error);
-            });
-
-        // const resp = await apiService.post({url: 'Binary', data: acceptedFiles});
-        // console.log(resp)
-
+        const resp = await apiService.post({url: 'Binary', data: acceptedFiles});
+        setFiles([...files, ...acceptedFiles]);
+        getTotalBinary();
     };
+
+    const getTotalBinary = async () => {
+        const resp = await apiService.get({url: 'Binary'});
+        console.log(resp);
+        if (resp.total) setTotal(resp.total);
+    }
 
     const getPreview = file => URL.createObjectURL(file);
 
@@ -43,11 +38,10 @@ const AttachFilesComp = () => {
                     return (
                         <>
                             {isDragActive ? (
-                                <p className="attach-files__title">Placez votre photo dessous ...</p>
+                                <p className="attach-files__title">Drop your photo here ...</p>
                             ) : (
                                 <p className="attach-files__title">
-                                    Cliquer pour sélectionner votre photo,
-                                    ou la dragguer ci-dessous:
+                                    Click here to browse your photos, or drag them here:
                                 </p>
                             )}
                             {error &&
@@ -90,6 +84,11 @@ const AttachFilesComp = () => {
                     </li>
                 ))}
             </ul>
+            {total > 0 &&
+                <p className="attach-files__total">
+                    There is <span className="attach-files__total__number">{total}</span> resources in API
+                </p>
+            }
         </div>
     )
 

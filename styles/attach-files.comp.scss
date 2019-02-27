@@ -9,6 +9,15 @@
     &__error {
         color: $cl-error;
     }
+    &__total {
+        text-align: center;
+        margin: $gutter;
+        &__number {
+            color: $cl-primary;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+    }
     &__dropzone {
         position: relative;
         display: flex;
