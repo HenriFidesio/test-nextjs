@@ -1,5 +1,5 @@
-import DropzoneComp from 'dropzone/dropzone.comp.js';
+import AttachFilesComp from 'attach-files/attach-files.comp.js';
 
 export {
-	DropzoneComp,
+	AttachFilesComp,
 }

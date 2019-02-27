@@ -1,3 +1,18 @@
+@import 'styles/spacing';
+@import 'styles/colors';
+@import 'styles/box-shadow';
+
 .home-page {
-	color: red;
+	padding: $gutter*2;
+	background-color: white;
+	&__title {
+		margin: 0 auto $gutter auto;
+		color: $cl-primary;
+		text-align: center;
+	}
+	&__inner {
+		padding: $gutter;
+		background-color: white;
+		box-shadow: $bs-strong;
+	}
 }

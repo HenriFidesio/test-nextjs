@@ -1,0 +1,125 @@
+@import 'styles/colors.scss';
+@import 'styles/spacing.scss';
+@import 'styles/box-shadow.scss';
+
+$drop-size: 4rem;
+
+.attach-files {
+    &__title {
+        color: $cl-primary;
+    }
+    &__dropzone {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        padding: $gutter/2;
+        height: $drop-size;
+        outline: none;
+        border: 1px solid rgba($cl-grey, 0.3);
+        border-radius: 5px;
+        transition: 0.4s background-color;
+        cursor: pointer;
+        &__icon {
+            position: relative;
+            width: $drop-size/3;
+            height: $drop-size/3;
+            padding: $gutter/1.4;
+            border: 2px solid $cl-primary;
+            border-radius: 50%;
+            box-shadow: $bs-strong;
+            background-color: white;
+            &:before {
+                content: '';
+                position: absolute;
+                top: .7rem;
+                right: 0;
+                left: 0;
+                margin: auto;
+                height: 2rem;
+                width: 3rem;
+                background-image: url(/static/images/cloud-upload.png);
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        }
+        &__cover {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: repeating-linear-gradient(
+                -55deg,
+                $cl-primary,
+                $cl-primary 10px,
+                darken($cl-primary, 10%) 10px,
+                darken($cl-primary, 10%) 20px
+            );
+            transform: rotateX(180deg);
+        }
+        &__icon,
+        &__cover {
+            transition: 0.3s transform;
+            backface-visibility: hidden;
+        }
+        &--active {
+            .attach-files__dropzone {
+                &__icon {
+                    transform: rotateX(180deg);
+                }
+                &__cover {
+                    transform: rotateX(0deg);
+                }
+            }
+        }
+        &:hover {
+            background-color: rgba(lighten($cl-primary, 30%), 0.4);
+        }
+    }
+    &__preview {
+        margin-bottom: $gutter;
+        padding: 0;
+        &__item {
+            position: relative;
+            display: inline-block;
+            width: 5rem;
+            height: 5rem;
+            margin: 0 $gutter $gutter * 2 0;
+            padding: 0.7rem;
+            vertical-align: top;
+            list-style: none;
+            border: 1px solid rgba($cl-grey, 0.6);
+            border-radius: 5px;
+            &__img {
+                display: block;
+                margin-bottom: $gutter/2;
+                width: 5rem;
+                height: 5rem;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            &__close {
+                position: absolute;
+                top: -$gutter/2;
+                right: -$gutter/2;
+                cursor: pointer;
+            }
+            svg {
+                fill: $cl-error;
+            }
+            &__info {
+                font-size: 0.8rem;
+                text-decoration: none;
+                color: $cl-primary;
+            }
+        }
+    }
+    &__loader {
+        opacity: 0;
+        transition: 0.4s opacity;
+        &--show {
+            opacity: 1;
+        }
+    }
+}
